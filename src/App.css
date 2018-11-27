@@ -1,0 +1,25 @@
+body {
+  font-family: 'Rubik', sans-serif;
+  margin: 16px;
+}
+
+h1 {
+  font-weight: 500;
+  font-size: 40px;
+}
+
+h2 {
+  font-size: 30px;
+  font-weight: 500;
+}
+
+h3 {
+  font-size: 22px;
+  font-weight: 500;
+  letter-spacing: 2px;
+}
+
+p {
+  font-weight: normal;
+  font-size: 18px;
+}

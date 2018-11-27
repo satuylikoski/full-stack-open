@@ -1,0 +1,32 @@
+{
+  "persons": [
+    {
+      "name": "Kaarle",
+      "number": "040 123 456",
+      "id": 21,
+      "important": true
+    },
+    {
+      "name": "Rasmus",
+      "number": "020 888",
+      "id": 23,
+      "important": true
+    },
+    {
+      "name": "Hanna",
+      "number": "",
+      "id": 24,
+      "important": false
+    },
+    {
+      "name": "Satu Ylikoski",
+      "number": "010 000",
+      "id": 32
+    },
+    {
+      "name": "ss",
+      "number": "",
+      "id": 33
+    }
+  ]
+}
