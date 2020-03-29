@@ -1,27 +1,10 @@
 import axios from 'axios';
-const allCountriesUrl = 'https://restcountries.eu/rest/v2/all';
-const name = 'https://restcountries.eu/rest/v2/name';
 
-const getAllCountries = () => {
-  const request = axios.get(allCountriesUrl);
-  return request
-    .then(response => response.data);
-};
+const COUNTRY_SEARCH_URL = 'https://restcountries.eu/rest/v2';
 
 const findCountries = search => {
-  const request = axios.get(`${name}/${search}`);
-  return request
-    .then(response => response.data);
-
-  // axios.get(`${name}/${search}`).then(response => {
-  //   if (response.data.length > 10) {
-  //     console.log('tullaanko tänne', response.data);
-  //     return 'too many';
-  //   } else {
-  //     console.log('tullaanko tänne 2', response.data);
-  //     return response.data.map((country) => country.name);
-  //   }
-  // });
+  const request = axios.get(`${COUNTRY_SEARCH_URL}/name/${search}`);
+  return request.then(response => response.data);
 };
 
-export default { getAllCountries, findCountries };
+export default { findCountries };

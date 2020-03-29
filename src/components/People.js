@@ -3,27 +3,29 @@ import styled, { css } from 'styled-components';
 
 import Button from '../common/Button';
 
-function People({ personsList, toggleDelete, toggleImportance }) {
+function People({ personsList, toggleDelete, filterWith }) {
   return (
     <Table>
       <tbody>
         <TableRow>
           <TableHeader>Name</TableHeader>
           <TableHeader>Number</TableHeader>
-          <TableHeader>Options</TableHeader>
+          <TableHeader></TableHeader>
         </TableRow>
-        {personsList.map(person => (
-          <TableRow key={person.id}>
-            <TableData>{person.name}</TableData>
-            <TableData>{person.number}</TableData>
-            <TableData options>
-              <Button small important={person.important} onClick={toggleImportance(person.id)}>
-                {person.important ? 'important' : 'what ever'}
-              </Button>
-              <Button small onClick={toggleDelete(person.id, person.name)}>Remove</Button>
-            </TableData>
-          </TableRow>
-        ))}
+
+        {personsList
+          .filter(person => person.name.startsWith(filterWith))
+          .map(person => (
+            <TableRow key={person.id}>
+              <TableData>{person.name}</TableData>
+              <TableData>{person.number}</TableData>
+              <TableData options>
+                <Button small onClick={toggleDelete(person.id, person.name)}>
+                  Remove
+                </Button>
+              </TableData>
+            </TableRow>
+          ))}
       </tbody>
     </Table>
   );
@@ -35,7 +37,7 @@ const Table = styled.table`
 `;
 
 const TableHeader = styled.th`
-  color:	#303030;
+  color: #303030;
   font-size: 18px;
   padding: 12px;
   text-align: left;
@@ -46,13 +48,15 @@ const TableData = styled.td`
   font-size: 16px;
   text-transform: capitalize;
 
-  ${props => props.options && css`
-    width: 80px;
-  `}
+  ${props =>
+    props.options &&
+    css`
+      width: 80px;
+    `}
 `;
 
 const TableRow = styled.tr`
-  background-color: #E8E8E8;
+  background-color: #e8e8e8;
   height: 30px;
 `;
 

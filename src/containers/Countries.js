@@ -1,59 +1,58 @@
-import React, { Component, Fragment } from 'react';
+import React, { useState } from 'react';
 
 import countryService from '../services/countries';
 
+import Button from '../common/Button';
 import Input from '../common/Input';
+import Notification from '../components/Notification';
 
-class Countries extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { countries: [], selectedInfo: '' };
-  }
+export default function Countries() {
+  const [countries, setCountries] = useState('');
+  const [selectedInfo, setSelectInfo] = useState('');
 
-  findCountry = e => {
-    this.setState({ selectedInfo: ''});
+  const findCountry = value => {
+    setSelectInfo(value);
 
     countryService
-      .findCountries(e.target.value)
-      .then(response =>
-        this.setState({ countries: response }));
-  }
+      .findCountries(value)
+      .then(response => setCountries(response));
+  };
 
-  openDetails = country => () => {
-    this.setState({ selectedInfo: country })
-  }
+  const hasSeveralCountries = countries.length <= 10 && countries.length > 1;
 
-  render() {
-    return (
-      <Fragment>
-        <Input 
-          onChange={this.findCountry}
-          placeholder="Country"
-        />
-        {this.state.countries.length > 10 && 'liikaa hakuja'}
-        <ul>
-          {this.state.countries.length <= 10 && this.state.countries.length > 1 && this.state.countries.map((country, i) =>
-              <li key={i}><button onClick={this.openDetails(country)}>{country.name}</button></li>
-          )}
-        </ul>
-        {this.state.countries.length === 1 && this.state.countries.map((country, i) =>
+  return (
+    <div style={{ paddingBottom: '100px' }}>
+      <Input
+        onChange={e => findCountry(e.target.value)}
+        placeholder="Country"
+        value={selectedInfo}
+      />
+
+      {countries.length > 10 && (
+        <Notification text="Could you specify a bit :)" />
+      )}
+
+      {hasSeveralCountries &&
+        countries.map((country, i) => (
+          <Button onClick={() => findCountry(country.name)} key={i}>
+            {country.name}
+          </Button>
+        ))}
+
+      {countries.length === 1 &&
+        countries.map((country, i) => (
           <div key={i}>
-            <li>{country.name}</li>
-            <li>{country.population}</li>
-            <div style={{ height: '10px'}}>
-              <object aria-label="flag" data={country.flag}></object>
-            </div>
-          </div>
-        )}
-        {this.state.selectedInfo !== '' && (
-         <div>
-          <li>{this.state.selectedInfo.name}</li>
-          <li>{this.state.selectedInfo.population}</li>
-         </div>
-        )}
-      </Fragment>
-    );
-  }
-}
+            <p>Country name: {country.name}</p>
+            <p>Population: {country.population}</p>
+            <img
+              alt="country-flag"
+              src={country.flag}
+              style={{ width: '100px' }}
+            />
 
-export default Countries;
+            <p>Weather</p>
+          </div>
+        ))}
+    </div>
+  );
+}

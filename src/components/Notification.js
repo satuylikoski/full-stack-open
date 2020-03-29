@@ -1,22 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
 
-function Notification({ name, type }) {
-  let text = '';
-  if (type === 'error') {
-    text = 'Something happened, could not do anything about person named';
-  } else {
-    text = `You managed to ${type} person named`;
-  }
-  return (
-    <Info>{text} {name}</Info>
-  );
+// TODO: Add severity
+function Notification({ text }) {
+  return <Info>{text}</Info>;
 }
 
 const Info = styled.div`
   width: 80%;
   height: 35px;
-  background-color: #E8E8E8;
+  background-color: #e8e8e8;
   color: #808080;
   padding: 10px 0 0 5px;
 `;
