@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import './App.css';
 
 import PhoneNumbers from './containers/PhoneNumbers';
@@ -7,7 +7,7 @@ import Countries from './containers/Countries';
 class App extends Component {
   render() {
     return (
-      <Fragment>
+      <>
         <h1>Full Stack Open 2020 course</h1>
 
         <h2>Phone numbers </h2>
@@ -15,7 +15,7 @@ class App extends Component {
 
         <h2>Countries</h2>
         <Countries />
-      </Fragment>
+      </>
     );
   }
 }
